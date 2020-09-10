@@ -46,13 +46,30 @@ AWS에서 관리하는 Directory Service는 3가지 형태가 있다.
 
 {% include video id="XNTsmRe8k7Q" provider="youtube" %}
 
+![image-right](/assets/images/2020-09-10-01.png){: .align-right}
 AWS VPC 내에 고 가용성을 위하여 `Domain Controllers`를 멀티 AZ에 설치할 수 있다. **최소 2 AZ**에 설치할 수 있으며, 원한다면 더 스케일링 아웃시킬 수 있다.
 RDS for SQL, AWS Workspace, Quicksight 등과 통합될 수 있으며, AWS SSO를 이용하여 3rd Party AWS Application에 모두 접근 가능하다.
-![image-right](/assets/images/2020-09-10-01.png){: .align-right}
 
 ### AWS Managed Microsoft AD - Integrations
 
 AWS Managed AD DC가 어떻게 다양한 서비스와 통합 될 수 있는지 아래 이미지가 상세히 설명해주고 있다.
 
 ![image-right](/assets/images/2020-09-10-02.png)
+
+AWS AD는 온프레미스 AD와 통합될 수 있으며, DC에서 사용가능한 서비스는 다음과 같다.
+
+- RDS for SQL Server
+- Amazon WorkSpace
+- Amazon Quicksight
+- Amazon Connect
+- Amazon WorkDocs
+- Amazon Single Sign On (SSO를 통하여 다양한 3rd Party 로그인이 가능하다.)
+
+또한 전통적인 AD Applications를 적용하여 이용이 가능하다.
+
+
+### AWS Managed Microsoft AD - Connect to on-premise AD
+
+Managed Microsoft AD에서 온프레미스 AD와 연결하는 법은 다음과 같다.
+
 
