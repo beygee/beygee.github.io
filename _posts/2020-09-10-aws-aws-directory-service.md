@@ -54,7 +54,7 @@ RDS for SQL, AWS Workspace, Quicksight 등과 통합될 수 있으며, AWS SSO�
 
 AWS Managed AD DC가 어떻게 다양한 서비스와 통합 될 수 있는지 아래 이미지가 상세히 설명해주고 있다.
 
-![image-right](/assets/images/2020-09-10-02.png)
+![](/assets/images/2020-09-10-02.png)
 
 AWS AD는 온프레미스 AD와 통합될 수 있으며, DC에서 사용가능한 서비스는 다음과 같다.
 
@@ -67,9 +67,32 @@ AWS AD는 온프레미스 AD와 통합될 수 있으며, DC에서 사용가능�
 
 또한 전통적인 AD Applications를 적용하여 이용이 가능하다.
 
-
 ### AWS Managed Microsoft AD - Connect to on-premise AD
 
 Managed Microsoft AD에서 온프레미스 AD와 연결하는 법은 다음과 같다.
 
+![](/assets/images/2020-09-10-03.png)
 
+온프레미스와 VPC 사이에는 **Direct Connect**를 이용하여 연결한다. (Site-to-Site VPN도 가능)
+
+두개의 AD 데이터베이스는 데이터가 독립적이다. 그래서 신뢰가 필요한 것이다. (AD간에 Replica는 이루어지지 않는다!)
+
+예를 들어보면, `X` AD와 `Y` AD가 존재하는데, 이들은 Two-way forest trust 관계이다. 만약 X에 어떤 유저 정보 조회를 요청했는데 없을 경우, `X` AD는 자신이 신뢰하고 있는 `Y` AD에게 가서, 그 유저의 정보가 있는지 물어본다.
+따라서 **유저 정보가 어느 AD에 있든지 간에 신뢰 관계만 형성되어 있으면 확인이 가능한 것이다.**
+
+신뢰 관계 형성에는 3가지의 종류가 있다!
+
+- One way trust (AWS -> On-premise)
+- One way trust (On-premise -> AWS)
+- Two way forest trust (On-premise <-> AWS)
+  {: .notice .notice--primary}
+
+### Solution Architecture: Active Directory Replication
+
+좀 전에 AD간에 Replica는 이루어지지 않는다고 했다. 하지만 방법은 존재한다.
+
+AD 간의 레이턴시를 최소화하기 위해 (Direct Connect나 VPN Latency) On-premise의 AD를 AWS VPC 내부에 EC2를 띄워 복제를 떠 놓는 것이다.
+
+![](/assets/images/2020-09-10-04.png)
+
+이렇게 하면 Home VPC 내부에서 레이턴시를 최소화하고 유저의 정보를 조회할 수 있다.
