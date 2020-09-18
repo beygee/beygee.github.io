@@ -13,7 +13,8 @@ interface FooList{
     fooList: Foo[]
 }
 
-type AnotherFoo = FooList['fooList'][number] // type AnotherFoo = Foo 와 같다.
+type AnotherFoo = FooList['fooList'][number]
+// type AnotherFoo = Foo 와 같다.
 ```
 
 `[number]` 구문을 이용하면 배열 속의 타입을 가져올 수 있다. 
